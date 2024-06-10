@@ -76,4 +76,7 @@ class Brainfuck:
 			if command["type"] in ("io","op","ptr"):
 				result += charDict[command["command"]] + "\n"
 			elif command["type"] == "block":
-				pass
+				newAST = Brainfuck(command["command"])
+				newAST.state = 1
+				newAST.compileToPython()
+				result += "".join(map(lambda s:"\t" + s,"\n".split(newAST.code)))
